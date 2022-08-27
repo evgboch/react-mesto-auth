@@ -37,3 +37,12 @@ function Main({cards, onCardLike, onCardDelete, onEditAvatar, onEditProfile, onA
 }
 
 export default Main;
+
+
+// cards={cards}
+// onCardLike={handleCardLike}
+// onCardDelete={handleCardDelete}
+// onEditAvatar={handleEditAvatarClick}
+// onEditProfile={handleEditProfileClick}
+// onAddPlace={handleAddPlaceClick}
+// onCardClick={handleCardClick}

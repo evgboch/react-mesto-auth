@@ -1,8 +1,12 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
+import Login from "./Login";
+import Register from "./Register";
 import Main from "./Main";
+import ProtectedRoute from "./ProtectedRoute";
 import Footer from "./Footer";
 // import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
@@ -17,7 +21,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
-  // решил добавить индикаторы загрузки запросов в виде изменения текста внутри сабмит-баттона :)
+  const [loggedIn, setLoggedIn] = React.useState(true);
   const [profileSumitionButtonText, setProfileSumitionButtonText] = React.useState("Сохранить");
   const [avatarSumitionButtonText, setAvatarSumitionButtonText] = React.useState("Сохранить");
   const [placeSumitionButtonText, setPlaceSumitionButtonText] = React.useState("Создать");
@@ -135,7 +139,16 @@ function App() {
       <div className="page__container">
         <Header />
 
-        <Main
+        <Switch>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+          <ProtectedRoute
+          path="/"
+          loggedIn={loggedIn}
           cards={cards}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
@@ -143,8 +156,8 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
-        />
-
+          />
+        </Switch>
         <Footer />
 
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} buttonText={profileSumitionButtonText} />
