@@ -20,7 +20,7 @@ function Register({onRegister}) {
   }
 
   return (
-    <div className="sign">
+    <div className="sign sign_up">
       <form className="sign__form sign__form_up" name="signUpForm" onSubmit={handleSubmit}>
         <h2 className="sign__title sign__title_up">Регистрация</h2>
         <label className="sign__field">
