@@ -18,7 +18,7 @@ import ImagePopup from "./ImagePopup";
 
 function App() {
   const [cards, setCards] = React.useState([]);
-  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(true);
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
   const [infoTip, setInfoTip] = React.useState("");
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -170,6 +170,8 @@ function App() {
         }
       })
       .catch((err) => {
+        setInfoTip("fail");
+        setIsInfoToolTipOpen(true);
         console.log(err);
       })
   }
@@ -178,11 +180,14 @@ function App() {
     return auth.register(password, email)
       .then((data) => {
         if (data) {
-          console.log(data);
+          setInfoTip("success");
+          setIsInfoToolTipOpen(true);
           history.push("/signin");
         }
       })
       .catch((err) => {
+        setInfoTip("fail");
+        setIsInfoToolTipOpen(true);
         console.log(err);
       })
   }
