@@ -13,12 +13,10 @@ function Register({onRegister}) {
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
-    // console.log(email);
   }
 
   function handlePasswordChange(evt) {
     setPassword(evt.target.value);
-    // console.log(password);
   }
 
   return (
@@ -29,7 +27,7 @@ function Register({onRegister}) {
           <input id="email" className="sign__input sign__input_place_top" type="email" name="email" placeholder="Email" required onChange={handleEmailChange} />
         </label>
         <label className="sign__field">
-          <input id="password" className="sign__input sign__input_place_bottom" type="password" name="password" placeholder="Пароль" required onChange={handlePasswordChange} />
+          <input id="password" className="sign__input sign__input_place_bottom" type="password" name="password" placeholder="Пароль" required autoComplete="off" onChange={handlePasswordChange} />
         </label>
         <button className="sign__submit-button sign__submit-button_up" type="submit">Зарегистрироваться</button>
       </form>

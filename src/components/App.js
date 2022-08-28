@@ -22,7 +22,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [profileSumitionButtonText, setProfileSumitionButtonText] = React.useState("Сохранить");
   const [avatarSumitionButtonText, setAvatarSumitionButtonText] = React.useState("Сохранить");
   const [placeSumitionButtonText, setPlaceSumitionButtonText] = React.useState("Создать");
@@ -137,24 +137,31 @@ function App() {
       });
   }
 
+  function onLogin({password, email}) {
+    return auth.authorize(password, email)
+      .then((token) => {
+        if (token) {
+          console.log(token);
+          setLoggedIn(true);
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   function onRegister({password, email}) {
     return auth.register(password, email)
-    .then((data) => {
-      if (data) {
-        // setInfoTooltipSuccess(true);
-        // setInfoTooltipPopupOpen(true);
-        console.log(data);
-        history.push("/signin");
-      }
-      // else {
-      //   setInfoTooltipSuccess(true);
-      // }
-    })
-    .catch((err) => {
-      console.log(err);
-      // setInfoTooltipPopupOpen(true);
-      // setInfoTooltipSuccess(false);
-    })
+      .then((data) => {
+        if (data) {
+          console.log(data);
+          history.push("/signin");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   return (
@@ -163,8 +170,8 @@ function App() {
         <Header />
 
         <Switch>
-          <Route path="/signin">
-            <Login />
+          <Route path="/signin" onLogin={onLogin}>
+            <Login onLogin={onLogin} />
           </Route>
           <Route path="/signup">
             <Register onRegister={onRegister} />
