@@ -6,7 +6,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
 import Login from "./Login";
 import Register from "./Register";
-import Main from "./Main";
+// import Main from "./Main";
 import ProtectedRoute from "./ProtectedRoute";
 import Footer from "./Footer";
 // import PopupWithForm from "./PopupWithForm";
@@ -23,11 +23,27 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [ess, setEmail] = React.useState(null);
   const [profileSumitionButtonText, setProfileSumitionButtonText] = React.useState("Сохранить");
   const [avatarSumitionButtonText, setAvatarSumitionButtonText] = React.useState("Сохранить");
   const [placeSumitionButtonText, setPlaceSumitionButtonText] = React.useState("Создать");
 
   const history = useHistory();
+
+  function handleTokenCheck() {
+    if (localStorage.getItem("jwt")) {
+      const token = localStorage.getItem("jwt");
+      auth.getContent(token)
+        .then((res) => {
+          setEmail(res.data.email);
+          setLoggedIn(true);
+          history.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -45,6 +61,8 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+
+    handleTokenCheck();
   }, []);
 
   function handleCardLike(card) {
@@ -139,9 +157,9 @@ function App() {
 
   function onLogin({password, email}) {
     return auth.authorize(password, email)
-      .then((token) => {
-        if (token) {
-          console.log(token);
+      .then((res) => {
+        if (res) {
+          localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           history.push("/");
         }
@@ -164,10 +182,16 @@ function App() {
       })
   }
 
+  function onSignOut() {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    history.push("/signin");
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
-        <Header />
+        <Header onSignOut={onSignOut} />
 
         <Switch>
           <Route path="/signin" onLogin={onLogin}>

@@ -8,7 +8,6 @@ function checkResponse(res) {
 }
 
 export function register(password, email) {
-  // debugger
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
@@ -16,14 +15,7 @@ export function register(password, email) {
     },
     body: JSON.stringify({password, email})
     })
-      .then(checkResponse);
-      // .then((res) => {
-      //   return res.json();
-      // })
-      // // .then((res) => {
-      // //   return res;
-      // // })
-      // .catch((err) => console.log(err));
+      .then(checkResponse)
 }
 
 export function authorize (password, email) {
@@ -34,31 +26,17 @@ export function authorize (password, email) {
     },
     body: JSON.stringify({password, email})
   })
-    // .then((res) => {
-    //   return res.json();
-    // })
-    // // .then((data) => {
-    // //   if (data.user){
-    // //     localStorage.setItem('jwt', data.jwt);
-    // //     return data;
-    // //   } else {
-    // //     return;
-    // //   }
-    // // })
-    // .catch(err => console.log(err))
-      .then(checkResponse);
+      .then(checkResponse)
 };
 
-// export const getContent = (token) => {
-//   return fetch(`${BASE_URL}/users/me`, {
-//     method: 'GET',
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${token}`,
-//     }
-//   })
-//   .then(res => res.json())
-//   .then(data => data)
-// }
+export function getContent (token) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    }
+  })
+    .then(checkResponse);
+}
 
