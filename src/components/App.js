@@ -21,7 +21,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [registered, setRegistered] = React.useState(true);
   const [profileSumitionButtonText, setProfileSumitionButtonText] = React.useState("Сохранить");
   const [avatarSumitionButtonText, setAvatarSumitionButtonText] = React.useState("Сохранить");
   const [placeSumitionButtonText, setPlaceSumitionButtonText] = React.useState("Создать");
@@ -134,17 +135,21 @@ function App() {
       });
   }
 
+  function handleSignButtonClick() {
+    setRegistered(!registered);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
-        <Header />
+        <Header loggedIn={loggedIn} registered={registered} onButtonClick={handleSignButtonClick} />
 
         <Switch>
           <Route path="/sign-in">
             <Login />
           </Route>
           <Route path="/sign-up">
-            <Register />
+            <Register onButtonClick={handleSignButtonClick} />
           </Route>
           <ProtectedRoute
           path="/"
@@ -158,6 +163,7 @@ function App() {
           onCardClick={handleCardClick}
           />
         </Switch>
+
         <Footer />
 
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} buttonText={profileSumitionButtonText} />
