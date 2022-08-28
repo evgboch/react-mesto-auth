@@ -8,6 +8,8 @@
   color: #FFF;
   cursor: pointer;
   text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.2s linear;
 }
 
 .header__button:hover {

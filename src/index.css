@@ -6,7 +6,7 @@
 @import url("./blocks/header/header.css");
 @import url("./blocks/header/__button-container/header__button-container.css");
 @import url("./blocks/header/__button/header__button.css");
-@import url("./blocks/header/__button/_logged/header__button_logged.css");
+@import url("./blocks/header/__button/_logged-in/header__button_logged-in.css");
 @import url("./blocks/header/__email/header__email.css");
 @import url("./blocks/header/__email/_hidden/header__email_hidden.css");
 @import url("./blocks/header/__logo/header__logo.css");

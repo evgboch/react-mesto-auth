@@ -8,7 +8,7 @@ function Header({email, onSignOut}) {
           <Switch>
             <Route exact path="/">
               <p className="header__email">{email}</p>
-              <Link to="/signin" className="header__button" onMouseDown={onSignOut}>
+              <Link to="/signin" className="header__button header__button_logged-in" onMouseDown={onSignOut}>
                 Выйти
               </Link>
             </Route>

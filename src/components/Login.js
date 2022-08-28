@@ -12,12 +12,10 @@ function Login({ onLogin }) {
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
-    // console.log(email);
   }
 
   function handlePasswordChange(evt) {
     setPassword(evt.target.value);
-    // console.log(password);
   }
 
   return(
