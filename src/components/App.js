@@ -10,6 +10,7 @@ import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import Footer from "./Footer";
 // import PopupWithForm from "./PopupWithForm";
+import InfoTooltip from "./InfoTooltip.js";
 import EditProfilePopup from "./EditProfilePopup";
 import AddPlacePopup from "./AddPlacePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -17,6 +18,8 @@ import ImagePopup from "./ImagePopup";
 
 function App() {
   const [cards, setCards] = React.useState([]);
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(true);
+  const [infoTip, setInfoTip] = React.useState("");
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -104,6 +107,7 @@ function App() {
   }
 
   function closeAllPopups() {
+    setIsInfoToolTipOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -186,6 +190,7 @@ function App() {
   function onSignOut() {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
+    setEmail("");
     history.push("/signin");
   }
 
@@ -216,6 +221,7 @@ function App() {
 
         <Footer />
 
+        <InfoTooltip isOpen={isInfoToolTipOpen} infoTip={infoTip} onClose={closeAllPopups} />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} buttonText={profileSumitionButtonText} />
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} buttonText={placeSumitionButtonText} />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} buttonText={avatarSumitionButtonText} />
