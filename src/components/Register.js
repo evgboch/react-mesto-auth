@@ -19,7 +19,7 @@ function Register({onButtonClick}) {
       </form>
       <div className="sign__button-container">
         <p className="sign__bottom-text">Уже зарегистрированы?</p>
-        <Link to="/sign-in" className="sign__in-button" onMouseDown={onButtonClick}>Войти</Link>
+        <Link to="/signin" className="sign__in-button">Войти</Link>
       </div>
     </div>
   )

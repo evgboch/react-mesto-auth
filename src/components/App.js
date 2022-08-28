@@ -21,8 +21,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  const [registered, setRegistered] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(true);
   const [profileSumitionButtonText, setProfileSumitionButtonText] = React.useState("Сохранить");
   const [avatarSumitionButtonText, setAvatarSumitionButtonText] = React.useState("Сохранить");
   const [placeSumitionButtonText, setPlaceSumitionButtonText] = React.useState("Создать");
@@ -135,21 +134,17 @@ function App() {
       });
   }
 
-  function handleSignButtonClick() {
-    setRegistered(!registered);
-  }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
-        <Header loggedIn={loggedIn} registered={registered} onButtonClick={handleSignButtonClick} />
+        <Header />
 
         <Switch>
-          <Route path="/sign-in">
+          <Route path="/signin">
             <Login />
           </Route>
-          <Route path="/sign-up">
-            <Register onButtonClick={handleSignButtonClick} />
+          <Route path="/signup">
+            <Register />
           </Route>
           <ProtectedRoute
           path="/"
