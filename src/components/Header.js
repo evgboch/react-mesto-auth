@@ -32,8 +32,6 @@ function Header({onLogout}) {
               </Link>
             </Route>
           </Switch>
-
-
         </div>
       </header>
     );

@@ -1,8 +1,24 @@
+import React from "react";
 import { Link } from "react-router-dom"
 
-function Register({onButtonClick}) {
+function Register({onRegister}) {
+  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("");
+
   function handleSubmit(evt) {
     evt.preventDefault();
+
+    onRegister({password, email});
+  }
+
+  function handleEmailChange(evt) {
+    setEmail(evt.target.value);
+    // console.log(email);
+  }
+
+  function handlePasswordChange(evt) {
+    setPassword(evt.target.value);
+    // console.log(password);
   }
 
   return (
@@ -10,10 +26,10 @@ function Register({onButtonClick}) {
       <form className="sign__form sign__form_up" name="signUpForm" onSubmit={handleSubmit}>
         <h2 className="sign__title sign__title_up">Регистрация</h2>
         <label className="sign__field">
-          <input id="email" className="sign__input sign__input_place_top" type="email" name="email" placeholder="Email" required />
+          <input id="email" className="sign__input sign__input_place_top" type="email" name="email" placeholder="Email" required onChange={handleEmailChange} />
         </label>
         <label className="sign__field">
-          <input id="password" className="sign__input sign__input_place_bottom" type="password" name="password" placeholder="Пароль" required />
+          <input id="password" className="sign__input sign__input_place_bottom" type="password" name="password" placeholder="Пароль" required onChange={handlePasswordChange} />
         </label>
         <button className="sign__submit-button sign__submit-button_up" type="submit">Зарегистрироваться</button>
       </form>

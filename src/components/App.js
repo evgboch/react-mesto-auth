@@ -1,5 +1,6 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
+import * as auth from "../utils/Auth.js";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
@@ -25,6 +26,8 @@ function App() {
   const [profileSumitionButtonText, setProfileSumitionButtonText] = React.useState("Сохранить");
   const [avatarSumitionButtonText, setAvatarSumitionButtonText] = React.useState("Сохранить");
   const [placeSumitionButtonText, setPlaceSumitionButtonText] = React.useState("Создать");
+
+  const history = useHistory();
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -134,6 +137,26 @@ function App() {
       });
   }
 
+  function onRegister({password, email}) {
+    return auth.register(password, email)
+    .then((data) => {
+      if (data) {
+        // setInfoTooltipSuccess(true);
+        // setInfoTooltipPopupOpen(true);
+        console.log(data);
+        history.push("/signin");
+      }
+      // else {
+      //   setInfoTooltipSuccess(true);
+      // }
+    })
+    .catch((err) => {
+      console.log(err);
+      // setInfoTooltipPopupOpen(true);
+      // setInfoTooltipSuccess(false);
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
@@ -144,7 +167,7 @@ function App() {
             <Login />
           </Route>
           <Route path="/signup">
-            <Register />
+            <Register onRegister={onRegister} />
           </Route>
           <ProtectedRoute
           path="/"
