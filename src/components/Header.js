@@ -1,13 +1,13 @@
 import { Link, Route, Switch } from "react-router-dom";
 
-function Header({onSignOut}) {
+function Header({email, onSignOut}) {
     return(
       <header className="header page__header">
         <div className="header__logo"></div>
         <div className="header__button-container">
           <Switch>
             <Route exact path="/">
-              <p className="header__email">email@email.com</p>
+              <p className="header__email">{email}</p>
               <Link to="/signin" className="header__button" onMouseDown={onSignOut}>
                 Выйти
               </Link>

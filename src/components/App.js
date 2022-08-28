@@ -23,7 +23,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState(null);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [ess, setEmail] = React.useState(null);
+  const [email, setEmail] = React.useState(null);
   const [profileSumitionButtonText, setProfileSumitionButtonText] = React.useState("Сохранить");
   const [avatarSumitionButtonText, setAvatarSumitionButtonText] = React.useState("Сохранить");
   const [placeSumitionButtonText, setPlaceSumitionButtonText] = React.useState("Создать");
@@ -161,6 +161,7 @@ function App() {
         if (res) {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
+          setEmail(email);
           history.push("/");
         }
       })
@@ -191,7 +192,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page__container">
-        <Header onSignOut={onSignOut} />
+        <Header email={email} onSignOut={onSignOut} />
 
         <Switch>
           <Route path="/signin" onLogin={onLogin}>
